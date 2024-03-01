@@ -3,17 +3,11 @@ on: [push, workflow_dispatch]
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
     steps:
-      - name: Output event data
-        run: echo "${{ toJSON(github.event) }}"
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm ci
-      - name: Test code
-        run: npm run test
-      - name: Build code
-        run: npm run build
-      - name: Deploy project
+      - name: start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          env: production
         run: echo "Deploying..."
